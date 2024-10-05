@@ -5,6 +5,7 @@ from .permissions import IsAuthorOrReadOnly
 from django_filters import rest_framework as filters
 from rest_framework.pagination import PageNumberPagination
 
+
 class BookFilter(filters.FilterSet):
     genre = filters.CharFilter(field_name="genre", lookup_expr="iexact")
 
@@ -12,12 +13,14 @@ class BookFilter(filters.FilterSet):
         model = Book
         fields = ['genre']
 
+
 class BookListCreateView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     filter_backends = [filters.DjangoFilterBackend]
     filterset_class = BookFilter
     pagination_class = PageNumberPagination
+
 
 class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
